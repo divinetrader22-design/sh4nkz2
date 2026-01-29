@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trusted Prop Firms - sh4nks.xyz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background gradient */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #0a0a0a, #1a0a2e, #0a0a0a, #16213e);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            z-index: -2;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating particles */
+        .particle {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: rgba(139, 92, 246, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 80px 20px 60px;
+            position: relative;
+        }
+
+        .brand {
+            font-size: 0.9em;
+            color: #8b5cf6;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 4em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #8b5cf6, #ec4899);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientText 5s ease infinite, fadeInUp 1s ease;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        @keyframes gradientText {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #a1a1aa;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        /* Intro Section */
+        .intro-box {
+            background: rgba(24, 24, 27, 0.5);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 60px;
+            animation: fadeInUp 1s ease 0.6s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .intro-box h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .intro-box p {
+            color: #a1a1aa;
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+
+        /* Firms Grid */
+        .firms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .firm-card {
+            background: rgba(24, 24, 27, 0.5);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInUp 1s ease both;
+        }
+
+        .firm-card:nth-child(1) { animation-delay: 0.8s; }
+        .firm-card:nth-child(2) { animation-delay: 1s; }
+        .firm-card:nth-child(3) { animation-delay: 1.2s; }
+        .firm-card:nth-child(4) { animation-delay: 1.4s; }
+
+        .firm-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .firm-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
+        }
+
+        .firm-card:hover::before {
+            opacity: 1;
+        }
+
+        .firm-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 3em;
+            font-weight: 800;
+            color: rgba(139, 92, 246, 0.1);
+        }
+
+        .firm-card h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(135deg, #fff, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .firm-card p {
+            color: #a1a1aa;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .visit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            color: #fff;
+            padding: 14px 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .visit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .visit-btn:hover::before {
+            left: 100%;
+        }
+
+        .visit-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5);
+        }
+
+        .automation-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            color: #fff;
+            padding: 16px 40px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(236, 72, 153, 0.3);
+        }
+
+        .automation-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .automation-btn:hover::before {
+            left: 100%;
+        }
+
+        .automation-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 10px 40px rgba(236, 72, 153, 0.5);
+        }
+
+        /* Trust Section */
+        .trust-section {
+            background: rgba(24, 24, 27, 0.5);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 24px;
+            padding: 50px;
+            animation: fadeInUp 1s ease 1.6s both;
+            margin-bottom: 40px;
+        }
+
+        .trust-section h2 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #fff, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .trust-item {
+            background: rgba(139, 92, 246, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .trust-item:hover {
+            background: rgba(139, 92, 246, 0.1);
+            border-color: rgba(139, 92, 246, 0.4);
+            transform: translateX(10px);
+        }
+
+        .trust-item strong {
+            color: #8b5cf6;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .trust-item p {
+            color: #a1a1aa;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #71717a;
+            animation: fadeInUp 1s ease 1.8s both;
+        }
+
+        .footer-brand {
+            font-size: 1.2em;
+            color: #8b5cf6;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        footer p {
+            margin: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .firms-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    
+    <!-- Particles -->
+    <script>
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+            document.body.appendChild(particle);
+        }
+    </script>
+
+    <div class="container">
+        <header>
+            <div class="brand">SH4NKS.XYZ</div>
+            <h1>Trusted Prop Firms</h1>
+            <p class="subtitle">The Only 4 Prop Firms I Trust & Recommend</p>
+        </header>
+
+        <div class="intro-box">
+            <h2>Why These Firms?</h2>
+            <p>In a market saturated with prop firms, finding trustworthy partners is crucial. After extensive research and experience, I've narrowed down my recommendations to just four firms that consistently deliver on their promises, maintain transparency, and treat traders fairly.</p>
+        </div>
+
+        <div class="firms-grid">
+            <div class="firm-card">
+                <div class="firm-number">01</div>
+                <h3>FTMO</h3>
+                <p>Industry leader with proven track record. Known for fair evaluation process, excellent customer support, and consistent payouts. FTMO sets the standard for prop firm reliability.</p>
+                <a href="https://ftmo.com/" target="_blank" class="visit-btn">
+                    Visit FTMO
+                    <span>→</span>
+                </a>
+            </div>
+
+            <div class="firm-card">
+                <div class="firm-number">02</div>
+                <h3>The5%ers</h3>
+                <p>Unique instant funding model with no evaluation required. Perfect for experienced traders who want to start trading immediately. Known for transparency and trader-friendly policies.</p>
+                <a href="https://the5ers.com/" target="_blank" class="visit-btn">
+                    Visit The5%ers
+                    <span>→</span>
+                </a>
+            </div>
+
+            <div class="firm-card">
+                <div class="firm-number">03</div>
+                <h3>E8 Markets</h3>
+                <p>Competitive pricing and flexible trading conditions. Offers both evaluation and instant funding options. Strong reputation for fair treatment and reliable payouts.</p>
+                <a href="https://e8markets.com/" target="_blank" class="visit-btn">
+                    Visit E8 Markets
+                    <span>→</span>
+                </a>
+            </div>
+
+            <div class="firm-card">
+                <div class="firm-number">04</div>
+                <h3>FundedNext</h3>
+                <p>Rapidly growing firm with innovative challenge structures. Offers some of the most trader-friendly rules and competitive profit splits. Known for quick payouts and responsive support.</p>
+                <a href="https://fundednext.com/" target="_blank" class="visit-btn">
+                    Visit FundedNext
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="trust-section">
+            <h2>Why I Only Trust These 4</h2>
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <strong>Proven Payment History</strong>
+                    <p>All four firms have consistent, verifiable records of paying traders on time without unnecessary delays or excuses.</p>
+                </div>
+                <div class="trust-item">
+                    <strong>Transparent Rules</strong>
+                    <p>Clear, straightforward terms with no hidden clauses designed to fail traders. What you see is what you get.</p>
+                </div>
+                <div class="trust-item">
+                    <strong>Regulatory Compliance</strong>
+                    <p>These firms operate within legal frameworks and maintain proper business registrations.</p>
+                </div>
+                <div class="trust-item">
+                    <strong>Positive Trader Reviews</strong>
+                    <p>Overwhelming positive feedback from the trading community with real success stories and testimonials.</p>
+                </div>
+                <div class="trust-item">
+                    <strong>Responsive Support</strong>
+                    <p>Quick, helpful customer service that actually solves problems instead of giving automated responses.</p>
+                </div>
+                <div class="trust-item">
+                    <strong>Fair Evaluation Process</strong>
+                    <p>Realistic trading conditions during challenges that don't set traders up for failure with unreasonable rules.</p>
+                </div>
+                <div class="trust-item">
+                    <strong>Longevity & Stability</strong>
+                    <p>These firms have been around long enough to prove they're not fly-by-night operations looking to take your money and disappear.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-brand">sh4nks.xyz</div>
+            <div style="margin: 25px 0;">
+                <a href="https://prtype-aio.vercel.app/" target="_blank" class="automation-btn">
+                    sh4nks.xyz automation group →
+                </a>
+            </div>
+            <p>⚠️ Always do your own research and never risk more than you can afford to lose.</p>
+            <p>Trade responsibly and choose your prop firm wisely.</p>
+        </footer>
+    </div>
+</body>
+</html>
